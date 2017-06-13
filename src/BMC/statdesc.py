@@ -345,51 +345,51 @@ def statprint(m_sd, ci, min_max, quartiles, normality, eq_var, labels, alpha,
               nrow, ncol, nmiss, nx):
     """print results on screen"""
 
-    print '-----------------------------------------------------------'
+    print ('-----------------------------------------------------------')
     str_row = 'rows' if nrow > 1 else 'row'
     str_col = 'columns' if ncol > 1 else 'column'
-    print 'Descriptive statistics for data (%d %s, %d %s)' \
-          % (nrow, str_row, ncol, str_col)
-    print '%d missing values' % nmiss
-    print '-----------------------------------------------------------'
-    print '%-10s %15s %15s' % ('Variable', 'Mean', 'STD')
-    print '-----------------------------------------------------------'
+    print ("Descriptive statistics for data (%d %s, %d %s)' \
+          % (nrow, str_row, ncol, str_col) ")
+    print ("%d missing values' % nmiss")
+    print ('-----------------------------------------------------------')
+    print ('%-10s %15s %15s' % ('Variable', 'Mean', 'STD'))
+    print ('-----------------------------------------------------------')
     for i in range(ncol):
-        print '%-10s %15f %15f' % (labels[i], m_sd[i, 0], m_sd[i, 1])
-    print '-----------------------------------------------------------'
-    print '%s' % ('95% confidence interval with unknown population STD')
-    print '%-10s %15s %15s' % ('Variable', 'Lower', 'Upper')
-    print '-----------------------------------------------------------'
+        print ('%-10s %15f %15f' % (labels[i], m_sd[i, 0], m_sd[i, 1]))
+    print ('-----------------------------------------------------------')
+    print ('%s' % ('95% confidence interval with unknown population STD'))
+    print ('%-10s %15s %15s' % ('Variable', 'Lower', 'Upper'))
+    print ('-----------------------------------------------------------')
     for i in range(ncol):
-        print '%-10s %15f %15f' % (labels[i], ci[i, 0], ci[i, 1])
-    print '-----------------------------------------------------------'
-    print '%-10s %15s %15s' % ('Variable', 'Minimum', 'Maximum')
-    print '-----------------------------------------------------------'
+        print ('%-10s %15f %15f' % (labels[i], ci[i, 0], ci[i, 1]))
+    print ('-----------------------------------------------------------')
+    print ('%-10s %15s %15s' % ('Variable', 'Minimum', 'Maximum'))
+    print ('-----------------------------------------------------------')
     for i in range(ncol):
-        print '%-10s %15f %15f' % (labels[i], min_max[i, 0], min_max[i, 1])
-    print '-----------------------------------------------------------'
-    print '%-10s %15s %15s %15s' % ('Variable', 'Median', '25th percent.',
-                                    '75th percent.')
-    print '-----------------------------------------------------------'
+        print ('%-10s %15f %15f' % (labels[i], min_max[i, 0], min_max[i, 1]))
+    print ('-----------------------------------------------------------')
+    print ('%-10s %15s %15s %15s' % ('Variable', 'Median', '25th percent.',
+                                    '75th percent.'))
+    print ('-----------------------------------------------------------')
     for i in range(ncol):
-        print '%-10s %15f %15f %15f' % (labels[i], quartiles[i, 0],
-                                        quartiles[i, 1], quartiles[i, 2])
-    print '-----------------------------------------------------------'
-    print '%s' % ("Shapiro-Wilk's test for normality")
-    print '%-10s %15s %15s' % ('Variable', 'W statistic', 'p value')
-    print '-----------------------------------------------------------'
+        print ('%-10s %15f %15f %15f' % (labels[i], quartiles[i, 0],
+                                        quartiles[i, 1], quartiles[i, 2]))
+    print ('-----------------------------------------------------------')
+    print ('%s' % ("Shapiro-Wilk's test for normality"))
+    print ('%-10s %15s %15s' % ('Variable', 'W statistic', 'p value'))
+    print ('-----------------------------------------------------------')
     for i in range(ncol):
-        print '%-10s %15f %15f' % (labels[i], normality[i, 0], normality[i, 1])
-    print '-----------------------------------------------------------'
+        print ('%-10s %15f %15f' % (labels[i], normality[i, 0], normality[i, 1]))
+    print ('-----------------------------------------------------------')
     if nx > 1:
         if np.all(normality[:, 1] > alpha):
-            print "Barlett's test for equality of variances"
+            print ("Barlett's test for equality of variances")
         else:
-            print "Levene's test for equality of variances"
-        print '%26s %15s' % ('t statistic', 'p value')
-        print '-----------------------------------------------------------'
-        print '%26f %15f' % (eq_var[0, 0], eq_var[0, 1])
-        print '-----------------------------------------------------------'
+            print ("Levene's test for equality of variances")
+        print ('%26s %15s' % ('t statistic', 'p value'))
+        print ('-----------------------------------------------------------')
+        print ('%26f %15f' % (eq_var[0, 0], eq_var[0, 1]))
+        print ('-----------------------------------------------------------')
 
 
 if __name__ == '__main__':

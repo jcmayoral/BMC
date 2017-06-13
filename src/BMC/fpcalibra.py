@@ -13,23 +13,23 @@ import time
 
 def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     """Force plate calibration algorithm.
-    
+
     For a force plate (FP) re-calibration, the relationship between the
     measured FP output (L) and the known loads (Li) is approximated by:
-    Li = C@L + E (@ is the operator for matrix multiplication).  
+    Li = C@L + E (@ is the operator for matrix multiplication).
     Where C is the 6-by-6 re-calibration matrix and E is a gaussian,
-    uncorrelated, zero mean noise six-by-one matrix.  
+    uncorrelated, zero mean noise six-by-one matrix.
 
     The re-calibration matrix can be found by solving the equation above and
-    then C can be later used to re-calibrate the FP output: Lc = C@L.  
+    then C can be later used to re-calibrate the FP output: Lc = C@L.
     Where Lc is the re-calibrated FP output.
 
     Cedraro et al. (2008) [1]_ proposed to use a calibrated three-component
     load cell to measure the forces applied on the FP at known measurement
     sites and an algorithm for the re-calibration.
-    
+
     This code implements the re-calibration algorithm, see [2]_
-    
+
     Parameters
     ----------
     Lfp : numpy 2-D array (6, nsamples*nksites)
@@ -46,7 +46,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     method  : string, optional
         method for the pseudiinverse calculation, 'SVD' (default) or 'lstsq'
         SVD is the Singular Value Decomposition and lstsq is least-squares
-    
+
     Returns
     -------
     C   : numpy 2-D (6-by-6) array
@@ -57,7 +57,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
 
     References
     ----------
-    .. [1] Cedraro A, Cappello A, Chiari L (2008) Gait & Posture, 28, 488–494. 
+    .. [1] Cedraro A, Cappello A, Chiari L (2008) Gait & Posture, 28, 488–494.
     .. [2] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/ForcePlateCalibration.ipynb
 
     Example
@@ -102,9 +102,9 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     >>> # simulated forces measured by the load cell after rotation
     >>> for k in range(nk):
     >>>     Flc[:, k*ns:(k+1)*ns] = R(ang[k]).T @ Flc[:, k*ns:(k+1)*ns]
-    >>> 
+    >>>
     >>> C2, ang2 = fpcalibra(Lfp, Flc, COP)
-    >>> 
+    >>>
     >>> e = np.sqrt(np.sum(C2-C)**2)
     >>> print('Residual between simulated and optimal re-calibration matrices:', e)
     >>> e = np.sqrt(np.sum(ang2-ang)**2)
@@ -126,7 +126,7 @@ def fpcalibra(Lfp, Flc, COP, threshold=1e-10, method='SVD'):
     if method.lower() == 'svd':
         Lpinv = pinv2(Lfp)
     else:
-        Lpinv = pinv(Lfp)        
+        Lpinv = pinv(Lfp)
     # cost function for the optimization
     def costfun(ang, P, R, Flc, CLfp, nk, ns, E):
         for k in range(nk):
